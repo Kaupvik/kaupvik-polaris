@@ -1,0 +1,930 @@
+{
+  "version": "0.8.0",
+  "components": [
+    {
+      "slug": "metric-card",
+      "name": "Metric card",
+      "summary": "Compact native statistic with an accessible definition and a precise data scope.",
+      "props": [
+        [
+          "label",
+          "string",
+          "Required",
+          "Metric name, shown with a dotted definition affordance."
+        ],
+        [
+          "value",
+          "string | number",
+          "Required",
+          "Verified value; use an em dash for unknown."
+        ],
+        [
+          "detail / definition",
+          "string",
+          "Optional",
+          "Short scope remains visible; full definition is available by hover and keyboard focus."
+        ],
+        [
+          "icon",
+          "ReactNode",
+          "Optional",
+          "Decorative icon only."
+        ]
+      ],
+      "example": "<MetricCard label=\"Ready to settle\" value=\"$120\" detail=\"Verified paid orders\" definition=\"Net merchandise commission after verified refunds; excludes shipping and tax.\" />",
+      "guidelines": "Keep data scope visible. Unknown is not zero. A definition explains the metric, never hides a blocking workflow.",
+      "accessibility": "Native tooltip is linked by interestFor; the title is keyboard focusable. Native number is labelled by its section.",
+      "version": "0.7.1",
+      "status": "Available",
+      "owner": "Kaupvik UI foundation"
+    },
+    {
+      "slug": "settings-rows",
+      "name": "Settings rows",
+      "summary": "Native-style icon rows with inset separators and aligned copy and actions.",
+      "props": [
+        [
+          "children",
+          "ReactNode",
+          "Required",
+          "SettingsRow children; every row has an appropriate valid icon."
+        ]
+      ],
+      "example": "<SettingsRows><SettingsRow icon=\"organization\" title=\"Business accounts\" description=\"Review native purchasing locations\" action={<s-button>Open accounts</s-button>} /></SettingsRows>",
+      "guidelines": "Use one group per subject. Separators start at the copy column and stop inside the card; do not draw another enclosing border around each row.",
+      "accessibility": "Each action keeps its own accessible name and native keyboard behavior. Icons are supporting context.",
+      "version": "0.7.0",
+      "status": "Available",
+      "owner": "Kaupvik UI foundation"
+    },
+    {
+      "name": "Workspace entries",
+      "slug": "workspace-entries",
+      "summary": "Shared responsive homepage entry composition with one primary task.",
+      "props": [
+        [
+          "items",
+          "{id,title,description,href,icon,meta?,tone?}[]",
+          "Required",
+          "Destinations with verified counts and valid native icon names."
+        ],
+        [
+          "featured",
+          "ReactNode",
+          "Optional",
+          "One primary workflow."
+        ]
+      ],
+      "example": "<WorkspaceEntries items={destinations} featured={<WorkspaceFeature {...primary} />} />",
+      "guidelines": "Use verified state and real URLs. The host owns routing, permissions and business writes. One featured cell; short supporting destinations. Equal rows on desktop; one column on narrow screens.",
+      "accessibility": "One stretched link per entry, no nested interactive controls; visible focus ring. Icons are decorative. Feature actions remain individually focusable.",
+      "version": "0.6.7",
+      "status": "Available",
+      "owner": "Kaupvik UI foundation"
+    },
+    {
+      "name": "Workspace feature",
+      "slug": "workspace-feature",
+      "summary": "Shared responsive homepage entry composition with one primary task.",
+      "props": [
+        [
+          "eyebrow / title / description",
+          "string",
+          "Required",
+          "Concise primary task."
+        ],
+        [
+          "primary / secondary",
+          "ReactNode",
+          "Required / optional",
+          "Native actions supplied by host."
+        ],
+        [
+          "children",
+          "ReactNode",
+          "Optional",
+          "Verified task summary."
+        ]
+      ],
+      "example": "<WorkspaceFeature eyebrow=\"Quotes\" title=\"Prepare your next order\" description=\"Keep the next step clear.\" primary={<s-button>Create quote</s-button>} />",
+      "guidelines": "Use verified state and real URLs. The host owns routing, permissions and business writes. One featured cell; short supporting destinations. Equal rows on desktop; one column on narrow screens.",
+      "accessibility": "One stretched link per entry, no nested interactive controls; visible focus ring. Icons are decorative. Feature actions remain individually focusable.",
+      "version": "0.6.7",
+      "status": "Available",
+      "owner": "Kaupvik UI foundation"
+    },
+    {
+      "slug": "stage-card",
+      "name": "Stage card",
+      "summary": "Highlight the next useful task for the current merchant stage.",
+      "props": [
+        [
+          "title",
+          "string",
+          "Required",
+          "Clear action-oriented heading."
+        ],
+        [
+          "description",
+          "string",
+          "Required",
+          "Explain the outcome."
+        ],
+        [
+          "featured",
+          "boolean",
+          "false",
+          "Span the primary bento area."
+        ],
+        [
+          "eyebrow",
+          "string",
+          "\u2014",
+          "Stage or real count."
+        ],
+        [
+          "action",
+          "ReactNode",
+          "\u2014",
+          "Native s-button or s-link."
+        ],
+        [
+          "kind",
+          "string",
+          "companies",
+          "companies, import, sales, restock, pricing, commissions, credit, receivables or statements schematic artwork; never implementation evidence."
+        ]
+      ],
+      "example": "<StageCard featured title=\"Group your customers\" description=\"Review company and location suggestions.\" action={<s-button variant=\"primary\">Find customers</s-button>} />",
+      "guidelines": "Use one featured action. Stage must come from real store/task state. Avoid a wall of equal cards.",
+      "accessibility": "Static artwork is decorative; heading and action communicate the same purpose.",
+      "version": "0.7.2",
+      "status": "Available",
+      "owner": "Kaupvik UI foundation"
+    },
+    {
+      "slug": "bento-grid",
+      "name": "Bento grid",
+      "summary": "Arrange an uneven, responsive set of task cards.",
+      "props": [
+        [
+          "children",
+          "ReactNode",
+          "Required",
+          "StageCard children; one featured item."
+        ]
+      ],
+      "example": "<BentoGrid><StageCard featured {...primary} /><StageCard {...secondary} /></BentoGrid>",
+      "guidelines": "Start with the primary journey, then secondary tasks. At mobile widths cards return to a linear reading order.",
+      "accessibility": "DOM order is reading and tab order. Do not use visual reordering to change task priority.",
+      "version": "0.1.0",
+      "status": "Available",
+      "owner": "Kaupvik UI foundation"
+    },
+    {
+      "slug": "empty-state",
+      "name": "Empty state",
+      "summary": "Explain missing data and offer one useful next action.",
+      "props": [
+        [
+          "title",
+          "string",
+          "Required",
+          "Describe what will appear."
+        ],
+        [
+          "description",
+          "string",
+          "Required",
+          "Explain the next step or why a search is empty."
+        ],
+        [
+          "action",
+          "ReactNode",
+          "\u2014",
+          "Native primary action."
+        ],
+        [
+          "kind",
+          "string",
+          "companies",
+          "companies or tasks artwork."
+        ]
+      ],
+      "example": "<EmptyState title=\"Your companies will appear here\" description=\"Find customers to prepare your first company.\" action={<s-button href=\"/migration\">Find customers</s-button>} />",
+      "guidelines": "Use after a successful empty read. Show loading and errors separately. Do not imply a failed request means zero records.",
+      "accessibility": "Decorative SVG is hidden from assistive technology; the section has an accessible title.",
+      "version": "0.1.0",
+      "status": "Available",
+      "owner": "Kaupvik UI foundation"
+    },
+    {
+      "slug": "source-tabs",
+      "name": "Source tabs",
+      "summary": "Switch related source or presentation modes with accessible tabs.",
+      "props": [
+        [
+          "items",
+          "{id,label}[]",
+          "Required",
+          "Stable IDs and human labels."
+        ],
+        [
+          "selected",
+          "string",
+          "Required",
+          "Controlled active item."
+        ],
+        [
+          "onSelect",
+          "(id)=>void",
+          "Required",
+          "Update host state."
+        ],
+        [
+          "children",
+          "ReactNode",
+          "\u2014",
+          "Current panel content."
+        ],
+        [
+          "label",
+          "string",
+          "Views",
+          "Accessible tab-list name."
+        ]
+      ],
+      "example": "<SourceTabs items={[{id:\"search\",label:\"Search & filter\"},{id:\"file\",label:\"Upload file\"}]} selected={source} onSelect={setSource}>{panel}</SourceTabs>",
+      "guidelines": "Search/filter is the default customer source. Switching the tab must not silently discard an imported file or selected customers.",
+      "accessibility": "Left/right arrows, Home/End, roving tabIndex, aria-selected and linked tab/panel IDs.",
+      "version": "0.1.0",
+      "status": "Available",
+      "owner": "Kaupvik UI foundation"
+    },
+    {
+      "slug": "filter-builder",
+      "name": "Filter builder",
+      "summary": "Build bounded AND/OR expressions from a host-provided field schema.",
+      "props": [
+        [
+          "expression",
+          "FilterExpression",
+          "\u2014",
+          "Nested group/rule AST; all, any, none, exactly one."
+        ],
+        [
+          "onExpressionChange",
+          "(expression)=>void",
+          "\u2014",
+          "Controlled AST callback."
+        ],
+        [
+          "groups",
+          "FilterGroup[]",
+          "Required",
+          "OR groups containing AND rules."
+        ],
+        [
+          "fields",
+          "FilterField[]",
+          "Required",
+          "Allowed fields, operators, optional choices and placeholders."
+        ],
+        [
+          "onChange",
+          "(groups)=>void",
+          "Required",
+          "Controlled expression update."
+        ]
+      ],
+      "example": "<FilterBuilder groups={groups} fields={fields} onChange={setGroups} />",
+      "guidelines": "Use expression for nested AND/OR/NOT/exactly-one logic. groups/onChange remain v1-compatible. Field suggestions allow free manual entry and never replace other rules. Hosts validate depth, allowlists, query semantics and scan budgets on the server. Real box cells and container queries keep long IDs inside narrow drawers. Values stack below field/operator at narrow widths.",
+      "accessibility": "Native labeled fields and selects; accessible value-picker buttons and popover; keyboard-usable nested groups.",
+      "version": "0.7.8",
+      "status": "Available",
+      "owner": "Kaupvik UI foundation"
+    },
+    {
+      "slug": "settings-layout",
+      "name": "Settings layout",
+      "summary": "Compose settings with anchored sections or controlled route navigation and native cards.",
+      "props": [
+        [
+          "sections",
+          "{id,title,icon?,href?,children?}[]",
+          "Required",
+          "Stable IDs; href for route mode, children for anchor mode."
+        ],
+        [
+          "selected",
+          "string",
+          "Optional",
+          "Controlled route mode; renders only current page children."
+        ],
+        [
+          "onNavigate",
+          "(id,href)=>void",
+          "Optional",
+          "Host router callback; modifier-click preserves link behavior."
+        ],
+        [
+          "children",
+          "ReactNode",
+          "Optional",
+          "Current routed page with native cards."
+        ],
+        [
+          "collapseNavigationOnDrawer",
+          "boolean",
+          "false",
+          "Temporarily hide and inert navigation while a shared drawer is open; restore on close."
+        ]
+      ],
+      "example": "<SettingsLayout sections={[{id:\"connection\",title:\"Store connection\",children:<ConnectionSettings/>}]} />",
+      "guidelines": "Use native sections and controls. Explain only settings the merchant can act on. Navigation stays sticky on desktop and becomes a horizontal list on small screens. For many settings use selected + href + host onNavigate; current cards are route-owned, never hidden duplicate forms.",
+      "accessibility": "Anchor links work without scripting. IntersectionObserver updates aria-current in anchor mode; route mode uses aria-current=page and preserves keyboard/modifier-click links.",
+      "version": "0.7.8",
+      "status": "Available",
+      "owner": "Kaupvik UI foundation"
+    },
+    {
+      "slug": "resource-toolbar",
+      "name": "Resource toolbar",
+      "summary": "Keep a compact view selector beside a flexible native search input.",
+      "props": [
+        [
+          "children",
+          "ReactNode",
+          "Required",
+          "Native select, search field and action buttons."
+        ]
+      ],
+      "example": "<ResourceToolbar><s-select label=\"View\"/><s-text-field label=\"Search\"/><s-button>Columns</s-button></ResourceToolbar>",
+      "guidelines": "The view selector is 128px, search fills the remaining width. Do not stretch an All selector across half the table. Wrap at narrow sizes. Use a 3:7 view/search ratio and separate sort and column controls.",
+      "accessibility": "Host supplies meaningful labels. DOM order stays identical to visual order.",
+      "version": "0.4.0",
+      "status": "Available",
+      "owner": "Kaupvik UI foundation"
+    },
+    {
+      "slug": "brand-footer",
+      "name": "Brand footer",
+      "summary": "Use a consistent attribution link across Kaupvik products.",
+      "props": [
+        [
+          "children",
+          "ReactNode",
+          "\u2014",
+          "Optional concise product note."
+        ],
+        [
+          "href",
+          "string",
+          "https://kaupvik.com",
+          "Public studio URL."
+        ]
+      ],
+      "example": "<BrandFooter>Existing customer identities are preserved.</BrandFooter>",
+      "guidelines": "Use the real clickable Kaupvik link. Keep attribution separate from primary merchant tasks.",
+      "accessibility": "Native s-link opens the public studio in a new tab with noopener/noreferrer.",
+      "version": "0.1.0",
+      "status": "Available",
+      "owner": "Kaupvik UI foundation"
+    },
+    {
+      "slug": "relationship-graph",
+      "name": "Relationship graph",
+      "summary": "Explore real companies, purchasing locations and shared buyers.",
+      "props": [
+        [
+          "nodes",
+          "Node[]",
+          "Required",
+          "Native GIDs, node data, parentId and the host position."
+        ],
+        [
+          "edges",
+          "Edge[]",
+          "Required",
+          "Verified native relationship and role labels."
+        ],
+        [
+          "onSelect",
+          "(id)=>void",
+          "\u2014",
+          "Inspect a record in the host."
+        ],
+        [
+          "label",
+          "string",
+          "Company relationships",
+          "Accessible graph name."
+        ],
+        [
+          "onMoveRequest",
+          "(buyerId,locationId)=>void",
+          "\u2014",
+          "Optional drop intent; host previews and authorizes."
+        ],
+        [
+          "onReorder",
+          "(id,targetId)=>void",
+          "\u2014",
+          "Sibling dragged next to a target; host saves the order."
+        ],
+        [
+          "focusId",
+          "string",
+          "\u2014",
+          "Centre this card when it changes, e.g. a new record."
+        ],
+        [
+          "tools",
+          "CanvasTool[]",
+          "[]",
+          "Extra toolbar controls, such as expand/collapse per level."
+        ],
+        [
+          "initialLayout",
+          "{viewport}",
+          "\u2014",
+          "Saved camera only; card coordinates are never persisted."
+        ],
+        [
+          "onLayoutChange",
+          "(layout)=>void",
+          "\u2014",
+          "Host debounces revisioned camera persistence."
+        ]
+      ],
+      "example": "import {RelationshipGraph} from '@kaupvik/polaris/graph';\nimport '@xyflow/react/dist/style.css';\n<RelationshipGraph nodes={nodes} edges={edges} onSelect={setSelected} onReorder={orderSiblings} />",
+      "guidelines": "The host owns the tidy layout and passes one computed position per card, so the canvas stores no coordinates and always renders an even, layered map. Dragging a card returns it to that position and only emits a sibling reorder; there is no pixel-level nudge. Canvas tools carry pressed state for level filters and expand/collapse-all actions. Collapse never fits or recenters the viewport. Hand/select tools support Shift multi-selection. Native relationship drops emit reviewed intent only. Empty app draft profiles can appear before assigning native companies.",
+      "accessibility": "React Flow keyboard navigation and controls; always provide a tree/list alternative and a native-record inspector. Toolbar buttons expose aria-pressed for active filters, and every icon shares one centred line with its label. Respect reduced motion; do not animate relationship edges.",
+      "version": "0.6.4",
+      "status": "Available",
+      "owner": "Kaupvik UI foundation"
+    },
+    {
+      "slug": "skeleton",
+      "name": "Skeleton",
+      "summary": "Reserve the expected content geometry while data is loading.",
+      "props": [
+        [
+          "variant",
+          "page | card | table | graph | form",
+          "card",
+          "Expected layout."
+        ],
+        [
+          "rows / columns",
+          "number",
+          "4 / 1",
+          "Match incoming content."
+        ],
+        [
+          "minHeight",
+          "number",
+          "Variant default",
+          "Reserved region height."
+        ],
+        [
+          "label",
+          "string",
+          "Loading content",
+          "Accessible status name."
+        ]
+      ],
+      "example": "<Skeleton variant=\"table\" rows={6} columns={3} />",
+      "guidelines": "Use for pending real requests. Preserve data during refresh. Loading, errors and successful empty results are different states.",
+      "accessibility": "Labeled status with aria-busy; shimmer respects reduced motion.",
+      "version": "0.2.1",
+      "status": "Available",
+      "owner": "Kaupvik UI foundation"
+    },
+    {
+      "slug": "wizard-steps",
+      "name": "Wizard steps",
+      "summary": "Guide a source-specific flow with one current step.",
+      "props": [
+        [
+          "steps",
+          "string[]",
+          "Required",
+          "Ordered source-specific labels."
+        ],
+        [
+          "current",
+          "number",
+          "Required",
+          "Zero-based active step."
+        ],
+        [
+          "onSelect",
+          "(index)=>void",
+          "\u2014",
+          "Return to earlier input steps."
+        ]
+      ],
+      "example": "<WizardSteps steps={[\"Choose customers\",\"Group\",\"Review\",\"Create profiles\",\"Verify\"]} current={step} onSelect={setStep} />",
+      "guidelines": "Use one primary action per step. Preserve input on back. Native search skips file mapping. Never let navigation skip business confirmation.",
+      "accessibility": "Ordered navigation, aria-current=step, focusable earlier steps; future steps disabled.",
+      "version": "0.2.1",
+      "status": "Available",
+      "owner": "Kaupvik UI foundation"
+    },
+    {
+      "slug": "settings-row",
+      "name": "Settings row",
+      "summary": "Separate settings with right-aligned actions.",
+      "props": [
+        [
+          "title",
+          "string",
+          "Required",
+          "Setting or destination."
+        ],
+        [
+          "description",
+          "string",
+          "\u2014",
+          "Supporting explanation."
+        ],
+        [
+          "icon",
+          "Polaris icon name",
+          "\u2014",
+          "Official s-icon."
+        ],
+        [
+          "action",
+          "ReactNode",
+          "\u2014",
+          "One clear native action."
+        ]
+      ],
+      "example": "<SettingsRow title=\"Catalogs\" icon=\"catalog-product\" action={<s-button>Open</s-button>} />",
+      "guidelines": "Keep description on the left, action on the right, and a subtle divider between rows.",
+      "accessibility": "Reading order follows title, description, action. Decorative icon supplements text. Narrow layouts wrap.",
+      "version": "0.2.1",
+      "status": "Available",
+      "owner": "Kaupvik UI foundation"
+    },
+    {
+      "slug": "mapping-table",
+      "name": "Mapping table",
+      "summary": "Review field mapping in small categories and source examples.",
+      "props": [
+        [
+          "groups",
+          "{title,icon,fields}[]",
+          "Required",
+          "Roughly 5\u20137 related fields per category."
+        ],
+        [
+          "fields",
+          "Record<string,string>",
+          "Required",
+          "Destination IDs and labels."
+        ],
+        [
+          "columns",
+          "string[]",
+          "Required",
+          "Real uploaded headers."
+        ],
+        [
+          "mapping",
+          "Record<string,string>",
+          "Required",
+          "Controlled assignments."
+        ],
+        [
+          "examples",
+          "Record<string,unknown>",
+          "\u2014",
+          "First actual source row."
+        ],
+        [
+          "onChange",
+          "(mapping)=>void",
+          "Required",
+          "Updates source only."
+        ],
+        [
+          "targetLabel",
+          "string",
+          "Target schema field",
+          "Destination field column heading."
+        ]
+      ],
+      "example": "<MappingTable groups={fieldGroups} fields={fields} columns={headers} mapping={mapping} examples={sourceRow} onChange={setMapping} />",
+      "guidelines": "Review categories through disclosure. Show destination, source column and a real example. Mapping never writes native business records. Use native chevron and arrow icons in fixed, centered columns. Preserve the source-to-field alignment when categories expand.",
+      "accessibility": "Native disclosure and labeled selects. Logical keyboard order; examples hide on narrow screens.",
+      "version": "0.7.2",
+      "status": "Available",
+      "owner": "Kaupvik UI foundation"
+    },
+    {
+      "slug": "guide-layout",
+      "name": "Guide layout",
+      "summary": "Responsive two-column onboarding layout beside page content when expanded, collapsing cleanly above content on narrow screens.",
+      "props": [
+        [
+          "panel",
+          "ReactNode",
+          "Required",
+          "SetupGuide or host guide."
+        ],
+        [
+          "children",
+          "ReactNode",
+          "Required",
+          "Page content."
+        ],
+        [
+          "collapsed / dismissed",
+          "boolean",
+          "false",
+          "Controlled placement and visibility."
+        ]
+      ],
+      "example": "<GuideLayout collapsed={collapsed} panel={<SetupGuide steps={steps} collapsed={collapsed} onCollapsedChange={setCollapsed} />}>{content}</GuideLayout>",
+      "guidelines": "Completion and preference persistence belong to the host. Expanded desktop layout uses a left guide; narrow screens stack. Main content must have min-width zero.",
+      "accessibility": "Document order stays guide then content; native buttons keep focus and expanded state.",
+      "version": "0.7.5",
+      "status": "Available",
+      "owner": "Kaupvik UI foundation"
+    },
+    {
+      "slug": "setup-guide",
+      "name": "Setup guide",
+      "summary": "Compact readiness checklist, with concise step status, primary action button, and collapsible detail rows.",
+      "props": [
+        [
+          "title",
+          "string",
+          "Setup guide",
+          "Guide heading."
+        ],
+        [
+          "steps",
+          "{id,title,detail,done,action}[]",
+          "Required",
+          "Host-verified completion and actions."
+        ],
+        [
+          "collapsed / onCollapsedChange",
+          "boolean / callback",
+          "false / Required",
+          "Controlled host preference."
+        ],
+        [
+          "busy",
+          "boolean",
+          "false",
+          "Host work in progress."
+        ],
+        [
+          "dismissed / onDismiss",
+          "boolean / callback",
+          "false / optional",
+          "Only hides completed checklists; the host owns local persistence."
+        ]
+      ],
+      "example": "<SetupGuide steps={steps} collapsed={collapsed} onCollapsedChange={setCollapsed} />",
+      "guidelines": "Native checkbox steps, native Verified badges, one detail at a time. Close is available only after every step completes and asks for confirmation. Host owns progress and local preferences. Verified appears only inside the expanded step detail, never in its closed row.",
+      "accessibility": "Native button step toggles expose expanded state and controlled detail IDs. Text and icon communicate completion. Keyboard focus is visible; narrow text wraps without overflowing. Readonly checkbox labels stay accessible while visible titles retain normal contrast; Verified badges wrap below the title. Expanded completion is a native success badge.",
+      "version": "0.7.8",
+      "status": "Available",
+      "owner": "Kaupvik UI foundation"
+    },
+    {
+      "slug": "choice-switch",
+      "name": "Choice switch",
+      "summary": "Choose a compact horizontal preset without nested button surfaces.",
+      "props": [
+        [
+          "items",
+          "{id,label}[]",
+          "Required",
+          "Stable alternatives."
+        ],
+        [
+          "selected",
+          "string",
+          "Required",
+          "Active ID; empty means manual conditions."
+        ],
+        [
+          "onSelect",
+          "(id)=>void",
+          "Required",
+          "Host replaces conditions."
+        ],
+        [
+          "label",
+          "string",
+          "Quick filters",
+          "Accessible group name."
+        ]
+      ],
+      "example": "<ChoiceSwitch label=\"Quick filters\" items={[{id:\"wholesale\",label:\"Wholesale\"},{id:\"unassigned\",label:\"Without a company\"}]} selected={preset} onSelect={setPreset} />",
+      "guidelines": "Exclusive horizontal presets with one HTML button surface, native check icons and aria-pressed semantics. Native s-press-button exposes secondary/tertiary only, so this Kaupvik pattern provides the requested dark selected surface with white text. Arrow/Home/End switch and focus; host clears selection after manual filter edits. Keep one consistent pill radius and no nested frame.",
+      "accessibility": "Native button pressed state; arrow keys, Home and End move focus and selection. Space/Enter activate. Each option remains natively keyboard accessible; selection is also shown by a native check icon. Wrap on narrow screens.",
+      "version": "0.4.0",
+      "status": "Available",
+      "owner": "Kaupvik UI foundation"
+    },
+    {
+      "slug": "task-progress",
+      "name": "Task progress",
+      "summary": "Show real work and verification as separate, honest progress stages.",
+      "props": [
+        [
+          "stages",
+          "{id,label,completed,total}[]",
+          "Required",
+          "Actual saved operation and verification counts."
+        ],
+        [
+          "label",
+          "string",
+          "Task progress",
+          "Accessible region description."
+        ]
+      ],
+      "example": "<TaskProgress stages={[{id:\"import\",label:\"Import profiles\",completed:6,total:6},{id:\"verify\",label:\"Verify access\",completed:0,total:2}]} />",
+      "guidelines": "Native s-progress adapter with separate actual saved-operation and native-verification stages. Runtime and installed Polaris 2 types verify these native controls. Do not estimate time or advance with a timer; completed operations do not imply access verification. Native atoms own track, fill, semantics and tone.",
+      "accessibility": "Each native progress exposes a label and actual numeric counts. Completion includes a native check icon. Native reduced-motion behavior is retained.",
+      "version": "0.3.1",
+      "status": "Available",
+      "owner": "Kaupvik UI foundation"
+    },
+    {
+      "slug": "side-drawer",
+      "name": "Side drawer",
+      "summary": "Review and confirm a staged form in a rounded adaptive side panel.",
+      "props": [
+        [
+          "title",
+          "string",
+          "Required",
+          "Dialog heading."
+        ],
+        [
+          "description",
+          "string",
+          "\u2014",
+          "Purpose and draft boundary."
+        ],
+        [
+          "children",
+          "ReactNode",
+          "Required",
+          "Native form controls."
+        ],
+        [
+          "actions",
+          "ReactNode",
+          "Required",
+          "Cancel and confirm native buttons."
+        ],
+        [
+          "onClose",
+          "()=>void",
+          "Required",
+          "Discard unconfirmed draft."
+        ],
+        [
+          "surfaceSelector",
+          "string",
+          "[data-kp-drawer-surface]",
+          "Host content to resize."
+        ]
+      ],
+      "example": "<SideDrawer title=\"Review & edit row\" onClose={close} actions={<><s-button onClick={close}>Cancel</s-button><s-button variant=\"primary\" onClick={save}>Confirm changes</s-button></>}><s-text-field label=\"Company name\" /></SideDrawer>",
+      "guidelines": "Kaupvik composition using the native HTML dialog focus boundary and Shopify form controls. Desktop reserves dock width; narrow screens use a modal panel. Host owns staged values and must commit only on confirm. Host coordinates any concurrent fixed launchers while open; host owns all API transport and persistence. Never call business APIs from this shell.",
+      "accessibility": "Native modal focus trap, Escape cancellation, titled/described dialog and focus return. Closing must be equivalent to Cancel. Mobile backdrop, overflow scrolling, reduced motion and minimum target sizes are preserved.",
+      "version": "0.3.0",
+      "status": "Available",
+      "owner": "Kaupvik UI foundation"
+    },
+    {
+      "slug": "native-overlay",
+      "name": "Native overlay",
+      "summary": "Inline Polaris modal with reliable close, focus and scroll restoration.",
+      "props": [
+        [
+          "heading",
+          "string",
+          "Required",
+          "Accessible native dialog title."
+        ],
+        [
+          "children",
+          "ReactNode",
+          "Required",
+          "Native content and native action slots."
+        ],
+        [
+          "onClose",
+          "()=>void",
+          "Required",
+          "Unmount after the native afterhide lifecycle."
+        ],
+        [
+          "size",
+          "base | small | large",
+          "base",
+          "Native modal size."
+        ],
+        [
+          "modalRef",
+          "RefObject<HTMLElement|null>",
+          "\u2014",
+          "Optional host reference; call public hideOverlay to close."
+        ]
+      ],
+      "example": "<NativeOverlay heading=\"Confirm changes\" onClose={close}><s-paragraph>Review the change before saving.</s-paragraph><s-button slot=\"secondary-actions\" onClick={closeNative}>Cancel</s-button></NativeOverlay>",
+      "guidelines": "An inline app modal, not an App Bridge separate-frame modal. No business calls or credentials. Prefer public show/hide; isolate the verified App Bridge delegation compatibility and a bounded private dismissal fallback. Do not close the shadow dialog directly. Previous versions remain immutable.",
+      "accessibility": "Native focus trap, Escape/header dismissal and focus return. onClose runs once after afterhide. Consumer must test absence of inert/scroll/overlay residue and keyboard reopening in its actual Shopify host.",
+      "version": "0.6.5",
+      "status": "Available",
+      "owner": "Kaupvik UI foundation"
+    },
+    {
+      "slug": "hierarchy-tree-picker",
+      "name": "Hierarchy tree picker",
+      "summary": "Collapsible multi-level group and child checkbox tree with search and batch group selection.",
+      "props": [
+        [
+          "groups",
+          "HierarchyTreeGroup[]",
+          "Required",
+          "Parent groups containing selectable child records."
+        ],
+        [
+          "selectedIds",
+          "string[]",
+          "Required",
+          "Controlled list of selected child IDs."
+        ],
+        [
+          "onChange",
+          "(ids)=>void",
+          "Required",
+          "Updated child ID selection callback."
+        ],
+        [
+          "searchPlaceholder",
+          "string",
+          "Filter groups or items",
+          "Accessible filter prompt."
+        ]
+      ],
+      "example": "<HierarchyTreePicker groups={groups} selectedIds={selected} onChange={setSelected} />",
+      "guidelines": "Group Shopify companies or product families above leaf locations and variants so bulk assignment takes one click instead of flat ungrouped lists.",
+      "accessibility": "Native s-checkbox controls with indeterminate parent states, labeled expand/collapse buttons, and native search field.",
+      "version": "0.8.0",
+      "status": "Available",
+      "owner": "Kaupvik UI foundation"
+    },
+    {
+      "slug": "access-mapping-preview",
+      "name": "Access mapping preview",
+      "summary": "Real-time one-to-many access matrix showing matched groups from both perspectives before confirmation.",
+      "props": [
+        [
+          "leftTitle",
+          "string",
+          "Matched locations",
+          "Source perspective title."
+        ],
+        [
+          "rightTitle",
+          "string",
+          "Matched products",
+          "Target perspective title."
+        ],
+        [
+          "leftItems",
+          "AccessMappingItem[]",
+          "Required",
+          "Resolved source items matched by rule."
+        ],
+        [
+          "rightItems",
+          "AccessMappingItem[]",
+          "Required",
+          "Resolved target items matched by rule."
+        ]
+      ],
+      "example": "<AccessMappingPreview leftItems={locations} rightItems={products} />",
+      "guidelines": "Render live client evaluation as a visual preview only; always enforce authoritative preview hashing and authorization checks on the backend.",
+      "accessibility": "ChoiceSwitch switches perspectives; expandable parent groups use aria-expanded native buttons.",
+      "version": "0.8.0",
+      "status": "Available",
+      "owner": "Kaupvik UI foundation"
+    }
+  ]
+}

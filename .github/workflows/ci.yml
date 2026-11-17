@@ -1,0 +1,26 @@
+name: Verify Polaris Package
+on:
+  push:
+    branches: [main]
+  pull_request:
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - run: |
+          node -e "
+            const fs = require('node:fs');
+            const pkg = JSON.parse(fs.readFileSync('package.json', 'utf8'));
+            const reg = JSON.parse(fs.readFileSync('registry.json', 'utf8'));
+            if (pkg.version !== reg.version) throw new Error('Version mismatch');
+            const src = fs.readFileSync('src/index.js', 'utf8') + fs.readFileSync('src/graph.js', 'utf8');
+            const exported = [...src.matchAll(/export function (\w+)/g)].map(m => m[1]);
+            const documented = reg.components.map(c => c.name.split(' ').map(x => x[0].toUpperCase() + x.slice(1)).join(''));
+            const missing = exported.filter(e => !documented.includes(e));
+            if (missing.length) throw new Error('Undocumented exports: ' + missing.join(', '));
+            console.log('Verified', exported.length, 'exported components in v' + pkg.version);
+          "

@@ -1,0 +1,33 @@
+{
+  "name": "@kaupvik/polaris",
+  "version": "0.9.0",
+  "description": "Kaupvik business components composed with Shopify Polaris web components",
+  "type": "module",
+  "license": "MIT",
+  "exports": {
+    ".": {
+      "types": "./src/index.d.ts",
+      "default": "./src/index.js"
+    },
+    "./graph": {
+      "types": "./src/graph.d.ts",
+      "default": "./src/graph.js"
+    },
+    "./styles.css": "./src/styles.css"
+  },
+  "files": [
+    "src",
+    "README.md",
+    "LICENSE"
+  ],
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "peerDependencies": {
+    "react": ">=19",
+    "react-dom": ">=19"
+  },
+  "dependencies": {
+    "@xyflow/react": "12.12.1"
+  }
+}
